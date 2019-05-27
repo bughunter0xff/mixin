@@ -6,6 +6,7 @@ import (
 	"github.com/MixinNetwork/mixin/crypto"
 	"github.com/MixinNetwork/mixin/domains/bitcoin"
 	"github.com/MixinNetwork/mixin/domains/ethereum"
+	"github.com/MixinNetwork/mixin/domains/tron"
 )
 
 type DepositData struct {
@@ -57,6 +58,8 @@ func (tx *SignedTransaction) verifyDepositFormat() error {
 		return ethereum.VerifyTransactionHash(deposit.TransactionHash)
 	case bitcoin.BitcoinChainId:
 		return bitcoin.VerifyTransactionHash(deposit.TransactionHash)
+	case tron.TronChainId:
+		return tron.VerifyTransactionHash(deposit.TransactionHash)
 	}
 	return nil
 }

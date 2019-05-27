@@ -6,6 +6,7 @@ import (
 	"github.com/MixinNetwork/mixin/crypto"
 	"github.com/MixinNetwork/mixin/domains/bitcoin"
 	"github.com/MixinNetwork/mixin/domains/ethereum"
+	"github.com/MixinNetwork/mixin/domains/tron"
 )
 
 var (
@@ -27,6 +28,8 @@ func (a *Asset) Verify() error {
 		return ethereum.VerifyAssetKey(a.AssetKey)
 	case bitcoin.BitcoinChainId:
 		return bitcoin.VerifyAssetKey(a.AssetKey)
+	case tron.TronChainId:
+		return tron.VerifyAssetKey(a.AssetKey)
 	default:
 		return fmt.Errorf("invalid chain id %s", a.ChainId)
 	}
@@ -38,6 +41,8 @@ func (a *Asset) AssetId() crypto.Hash {
 		return ethereum.GenerateAssetId(a.AssetKey)
 	case bitcoin.BitcoinChainId:
 		return bitcoin.GenerateAssetId(a.AssetKey)
+	case tron.TronChainId:
+		return tron.GenerateAssetId(a.AssetKey)
 	default:
 		return crypto.Hash{}
 	}
@@ -49,6 +54,8 @@ func (a *Asset) FeeAssetId() crypto.Hash {
 		return ethereum.EthereumChainId
 	case bitcoin.BitcoinChainId:
 		return bitcoin.BitcoinChainId
+	case tron.TronChainId:
+		return tron.TronChainId
 	}
 	return crypto.Hash{}
 }

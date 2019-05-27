@@ -7,6 +7,7 @@ import (
 	"github.com/MixinNetwork/mixin/crypto"
 	"github.com/MixinNetwork/mixin/domains/bitcoin"
 	"github.com/MixinNetwork/mixin/domains/ethereum"
+	"github.com/MixinNetwork/mixin/domains/tron"
 )
 
 type WithdrawalData struct {
@@ -67,6 +68,8 @@ func (tx *SignedTransaction) validateWithdrawalSubmit(inputs map[string]*UTXO) e
 		return ethereum.VerifyAddress(submit.Withdrawal.Address)
 	case bitcoin.BitcoinChainId:
 		return bitcoin.VerifyAddress(submit.Withdrawal.Address)
+	case tron.TronChainId:
+		return tron.VerifyAddress(submit.Withdrawal.Address)
 	}
 	return nil
 }
